@@ -1,0 +1,69 @@
+[[entries."src/Container.php".issues]]
+code = "invalid-return-statement"
+start_line = 96
+end_line = 96
+
+[[entries."src/Container.php".issues]]
+code = "invalid-return-statement"
+start_line = 126
+end_line = 126
+
+[[entries."src/Container.php".issues]]
+code = "invalid-return-statement"
+start_line = 132
+end_line = 132
+
+[[entries."src/Container.php".issues]]
+code = "missing-override-attribute"
+start_line = 34
+end_line = 34
+
+[[entries."src/Container.php".issues]]
+code = "missing-override-attribute"
+start_line = 63
+end_line = 63
+
+[[entries."src/Container.php".issues]]
+code = "mixed-return-statement"
+start_line = 91
+end_line = 91
+
+[[entries."src/Container.php".issues]]
+code = "nullable-return-statement"
+start_line = 132
+end_line = 132
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "missing-override-attribute"
+start_line = 26
+end_line = 26
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-assignment"
+start_line = 64
+end_line = 64
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-assignment"
+start_line = 71
+end_line = 71
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-assignment"
+start_line = 80
+end_line = 80
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-assignment"
+start_line = 90
+end_line = 90
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-property-access"
+start_line = 82
+end_line = 82
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-property-access"
+start_line = 92
+end_line = 92

@@ -1,0 +1,74 @@
+[[entries."src/Container.php".issues]]
+code = "cyclomatic-complexity"
+start_line = 15
+end_line = 182
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "no-redundant-method-override"
+start_line = 10
+end_line = 14
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "no-redundant-method-override"
+start_line = 16
+end_line = 20
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 33
+end_line = 33
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 41
+end_line = 41
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 47
+end_line = 47
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 52
+end_line = 52
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 65
+end_line = 65
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 73
+end_line = 73
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 74
+end_line = 74
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 82
+end_line = 82
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 92
+end_line = 92
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "prefer-static-closure"
+start_line = 121
+end_line = 121
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "prefer-static-closure"
+start_line = 122
+end_line = 122
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "too-many-methods"
+start_line = 22
+end_line = 127
