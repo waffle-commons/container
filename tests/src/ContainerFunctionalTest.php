@@ -91,7 +91,7 @@ class ContainerFunctionalTest extends TestCase
         $instance = new \stdClass();
 
         $definitions = [
-            $key => $instance
+            $key => $instance,
         ];
 
         $container = new Container($definitions);
@@ -190,52 +190,67 @@ class ContainerFunctionalTest extends TestCase
 
 // --- HELPER CLASSES ---
 
-class SimpleService {}
+class SimpleService
+{
+}
 
-interface UnboundInterface {}
+interface UnboundInterface
+{
+}
 
-class NonExistentService {}
+class NonExistentService
+{
+}
 
-class ServiceWithDependency {
+class ServiceWithDependency
+{
     public function __construct(
-        public SimpleService $dependency
+        public SimpleService $dependency,
     ) {}
 }
 
-class ServiceWithDefaults {
+class ServiceWithDefaults
+{
     public function __construct(
         public int $count = 100,
-        public string $name = 'default'
+        public string $name = 'default',
     ) {}
 }
 
-class ServiceWithUnresolvableNullable {
+class ServiceWithUnresolvableNullable
+{
     public function __construct(
-        public ?UnboundInterface $optional = null
+        public null|UnboundInterface $optional = null,
     ) {}
 }
 
-class ServiceWithNullableConcrete {
+class ServiceWithNullableConcrete
+{
     public function __construct(
-        public ?SimpleService $optional = null
+        public null|SimpleService $optional = null,
     ) {}
 }
 
-class ServiceWithUnion {
+class ServiceWithUnion
+{
     public function __construct(
-        public SimpleService|NonExistentService $dependency
+        public SimpleService|NonExistentService $dependency,
     ) {}
 }
 
-class ServiceWithVariadic {
+class ServiceWithVariadic
+{
     public array $items;
-    public function __construct(SimpleService ...$items) {
+
+    public function __construct(SimpleService ...$items)
+    {
         $this->items = $items;
     }
 }
 
-class ServiceWithBuiltinDefault {
+class ServiceWithBuiltinDefault
+{
     public function __construct(
-        public array $config = []
+        public array $config = [],
     ) {}
 }

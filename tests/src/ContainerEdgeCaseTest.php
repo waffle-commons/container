@@ -36,13 +36,13 @@ class ContainerEdgeCaseTest extends TestCase
         // We use stdClass as a universally available simple class.
         $this->assertTrue(
             $container->has(\stdClass::class),
-            'Container::has() should return true for instantiable classes (autowiring).'
+            'Container::has() should return true for instantiable classes (autowiring).',
         );
 
         // 2. Non-Existent Check: Random strings should return false
         $this->assertFalse(
             $container->has('non_existent_key_' . uniqid()),
-            'Container::has() should return false for non-existent services.'
+            'Container::has() should return false for non-existent services.',
         );
     }
 
@@ -88,22 +88,27 @@ class ContainerEdgeCaseTest extends TestCase
 
 // --- HELPER CLASSES FOR TESTS ---
 
-class CircularA {
+class CircularA
+{
     public function __construct(CircularB $b) {}
 }
 
-class CircularB {
+class CircularB
+{
     public function __construct(CircularA $a) {}
 }
 
-class ClassWithPrimitive {
+class ClassWithPrimitive
+{
     public function __construct(int $id) {}
 }
 
-class ClassWithPrivateConstructor {
+class ClassWithPrivateConstructor
+{
     private function __construct() {}
 }
 
-class ClassWithUnionType {
+class ClassWithUnionType
+{
     public function __construct(int|string $val) {}
 }
