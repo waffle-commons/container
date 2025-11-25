@@ -1,0 +1,244 @@
+[[entries."src/Container.php".issues]]
+code = "cyclomatic-complexity"
+start_line = 15
+end_line = 182
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "no-redundant-method-override"
+start_line = 10
+end_line = 14
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "no-redundant-method-override"
+start_line = 16
+end_line = 20
+
+[[entries."tests/src/ContainerDependencyResolutionTest.php".issues]]
+code = "interface-name"
+start_line = 85
+end_line = 85
+
+[[entries."tests/src/ContainerDependencyResolutionTest.php".issues]]
+code = "interface-name"
+start_line = 89
+end_line = 89
+
+[[entries."tests/src/ContainerEdgeCaseTest.php".issues]]
+code = "assertion-style"
+start_line = 36
+end_line = 39
+
+[[entries."tests/src/ContainerEdgeCaseTest.php".issues]]
+code = "assertion-style"
+start_line = 42
+end_line = 45
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 27
+end_line = 27
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 28
+end_line = 28
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 30
+end_line = 30
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 41
+end_line = 41
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 42
+end_line = 42
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 52
+end_line = 52
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 53
+end_line = 53
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 63
+end_line = 63
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 64
+end_line = 64
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 74
+end_line = 74
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 84
+end_line = 84
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 99
+end_line = 99
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 102
+end_line = 102
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 103
+end_line = 103
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 109
+end_line = 109
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 128
+end_line = 128
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 129
+end_line = 129
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 133
+end_line = 133
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 147
+end_line = 147
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 148
+end_line = 148
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 153
+end_line = 153
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 162
+end_line = 162
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 172
+end_line = 172
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 173
+end_line = 173
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 176
+end_line = 176
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 185
+end_line = 185
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "assertion-style"
+start_line = 186
+end_line = 186
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "no-else-clause"
+start_line = 29
+end_line = 31
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "prefer-static-closure"
+start_line = 165
+end_line = 165
+
+[[entries."tests/src/ContainerFunctionalTest.php".issues]]
+code = "too-many-methods"
+start_line = 16
+end_line = 188
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 33
+end_line = 33
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 41
+end_line = 41
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 47
+end_line = 47
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 52
+end_line = 52
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 65
+end_line = 65
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 73
+end_line = 73
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 74
+end_line = 74
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 82
+end_line = 82
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "assertion-style"
+start_line = 92
+end_line = 92
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "prefer-static-closure"
+start_line = 121
+end_line = 121
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "prefer-static-closure"
+start_line = 122
+end_line = 122
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "too-many-methods"
+start_line = 22
+end_line = 127
