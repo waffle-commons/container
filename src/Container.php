@@ -113,27 +113,23 @@ final class Container implements ContainerInterface
      */
     private function autowire(string $class): object
     {
-        try {
-            $reflector = new ReflectionClass($class);
+        $reflector = new ReflectionClass($class);
 
-            if (!$reflector->isInstantiable()) {
-                throw new ContainerException("Class \"{$class}\" is not instantiable.");
-            }
-
-            $constructor = $reflector->getConstructor();
-
-            // If no constructor, simple instantiation
-            if (null === $constructor) {
-                return $reflector->newInstance();
-            }
-
-            // Resolve dependencies
-            $dependencies = $this->resolveDependencies($constructor->getParameters());
-
-            return $reflector->newInstanceArgs($dependencies);
-        } catch (ReflectionException $e) {
-            throw new ContainerException("Failed to autowire class \"{$class}\": " . $e->getMessage(), 0, $e);
+        if (!$reflector->isInstantiable()) {
+            throw new ContainerException("Class \"{$class}\" is not instantiable.");
         }
+
+        $constructor = $reflector->getConstructor();
+
+        // If no constructor, simple instantiation
+        if (null === $constructor) {
+            return $reflector->newInstance();
+        }
+
+        // Resolve dependencies
+        $dependencies = $this->resolveDependencies($constructor->getParameters());
+
+        return $reflector->newInstanceArgs($dependencies);
     }
 
     /**
@@ -168,13 +164,13 @@ final class Container implements ContainerInterface
                 // If not found but optional (nullable), allow null
                 if ($parameter->allowsNull()) {
                     $dependencies[] = null;
-                    continue;
+                } else {
+                    throw new ContainerException(
+                        "Dependency \"{$name}\" required by parameter \"{$parameter->getName()}\" could not be resolved.",
+                        0,
+                        $e,
+                    );
                 }
-                throw new ContainerException(
-                    "Dependency \"{$name}\" required by parameter \"{$parameter->getName()}\" could not be resolved.",
-                    0,
-                    $e,
-                );
             }
         }
 
