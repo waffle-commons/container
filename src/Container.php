@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Waffle\Commons\Container;
 
 use Closure;
-use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Container\Exception\NotFoundException;
+use Waffle\Commons\Contracts\Container\ContainerInterface;
 
 final class Container implements ContainerInterface
 {

@@ -24,6 +24,11 @@ start_line = 63
 end_line = 63
 
 [[entries."src/Container.php".issues]]
+code = "missing-override-attribute"
+start_line = 74
+end_line = 74
+
+[[entries."src/Container.php".issues]]
 code = "mixed-return-statement"
 start_line = 91
 end_line = 91
