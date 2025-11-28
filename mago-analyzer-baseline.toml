@@ -2,20 +2,50 @@ variant = "loose"
 
 [[issues]]
 file = "src/Container.php"
-code = "non-existent-class-like"
-message = 'Class `Waffle\Commons\Container\Container` cannot implement unknown type `ContainerInterface`'
+code = "invalid-return-statement"
+message = 'Invalid return type for function `waffle\commons\container\container::autowire`: expected `object`, but found `null|object`.'
 count = 1
 
 [[issues]]
-file = "src/Exception/ContainerException.php"
-code = "non-existent-class-like"
-message = 'Class `Waffle\Commons\Container\Exception\ContainerException` cannot implement unknown type `ContainerExceptionInterface`'
+file = "src/Container.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `waffle\commons\container\container::build`: expected `object`, but found `(closure(...mixed): mixed)|object`.'
 count = 1
 
 [[issues]]
-file = "src/Exception/NotFoundException.php"
-code = "non-existent-class-like"
-message = 'Class `Waffle\Commons\Container\Exception\NotFoundException` cannot implement unknown type `NotFoundExceptionInterface`'
+file = "src/Container.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Container\Container::get`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Container\Container::has`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Container\Container::set`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `waffle\commons\container\container::build`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "nullable-return-statement"
+message = 'Function `waffle\commons\container\container::autowire` is declared to return `object` but possibly returns a nullable value (inferred as `null|object`).'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$name`."
 count = 1
 
 [[issues]]
@@ -76,18 +106,6 @@ count = 8
 file = "tests/src/ContainerFunctionalTest.php"
 code = "mixed-property-access"
 message = "Attempting to access a property on a non-object type (`mixed`)."
-count = 1
-
-[[issues]]
-file = "tests/src/ContainerFunctionalTest.php"
-code = "non-existent-property"
-message = "Property `$created_by` does not exist on class `stdClass`."
-count = 2
-
-[[issues]]
-file = "tests/src/ContainerFunctionalTest.php"
-code = "non-existent-property"
-message = "Property `$name` does not exist on class `stdClass`."
 count = 1
 
 [[issues]]
