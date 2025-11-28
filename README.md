@@ -6,10 +6,51 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/waffle-commons/container.svg)](https://packagist.org/packages/waffle-commons/container)
 [![Packagist License](https://img.shields.io/packagist/l/waffle-commons/container)](https://github.com/waffle-commons/container/blob/main/LICENSE.md)
 
-Waffle Commons - Container Component
-====================================
+Waffle Container Component
+==========================
 
 A lightweight, strict, and fully compliant PSR-11 Dependency Injection Container implementation for the Waffle Framework.
+
+## 📦 Installation
+
+```bash
+composer require waffle-commons/container
+```
+
+## 🚀 Usage
+
+### Basic Usage
+
+```php
+use Waffle\Commons\Container\Container;
+
+$container = new Container();
+
+// Register a service
+$container->set(MyService::class, new MyService());
+
+// Retrieve a service
+$service = $container->get(MyService::class);
+```
+
+### Autowiring
+
+The container supports automatic dependency resolution (autowiring) for concrete classes.
+
+```php
+class Database { ... }
+
+class UserRepository {
+    public function __construct(private Database $db) {}
+}
+
+// Automatically resolves Database dependency
+$repo = $container->get(UserRepository::class);
+```
+
+### PSR-11 Compliance
+
+This container implements `Psr\Container\ContainerInterface`, making it compatible with any library that consumes PSR-11 containers.
 
 This component provides a robust foundation for managing dependencies with powerful features like autowiring and circular dependency detection, while adhering strictly to PHP standards.
 
