@@ -100,7 +100,7 @@ class ContainerTest extends TestCase
         // Then it checks allowsNull() -> true.
         // Injects null.
         $instance = $this->container->get(ServiceWithNullableParamNoDefault::class);
-        
+
         $this->assertNull($instance->dependency);
     }
 
@@ -108,7 +108,7 @@ class ContainerTest extends TestCase
     {
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage('could not be resolved');
-        
+
         $this->container->get(ServiceWithMissingDependency::class);
     }
 

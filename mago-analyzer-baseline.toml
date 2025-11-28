@@ -5,13 +5,13 @@ end_line = 96
 
 [[entries."src/Container.php".issues]]
 code = "invalid-return-statement"
-start_line = 126
-end_line = 126
+start_line = 125
+end_line = 125
 
 [[entries."src/Container.php".issues]]
 code = "invalid-return-statement"
-start_line = 132
-end_line = 132
+start_line = 131
+end_line = 131
 
 [[entries."src/Container.php".issues]]
 code = "missing-override-attribute"
@@ -35,8 +35,8 @@ end_line = 91
 
 [[entries."src/Container.php".issues]]
 code = "nullable-return-statement"
-start_line = 132
-end_line = 132
+start_line = 131
+end_line = 131
 
 [[entries."tests/src/ContainerDependencyResolutionTest.php".issues]]
 code = "unused-parameter"
@@ -194,6 +194,11 @@ start_line = 90
 end_line = 90
 
 [[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-assignment"
+start_line = 101
+end_line = 101
+
+[[entries."tests/src/ContainerTest.php".issues]]
 code = "mixed-property-access"
 start_line = 82
 end_line = 82
@@ -202,3 +207,8 @@ end_line = 82
 code = "mixed-property-access"
 start_line = 92
 end_line = 92
+
+[[entries."tests/src/ContainerTest.php".issues]]
+code = "mixed-property-access"
+start_line = 103
+end_line = 103
