@@ -93,6 +93,25 @@ class ContainerTest extends TestCase
         $this->assertNull($instance->container);
     }
 
+    public function testAutowiringHandlesNullableDependenciesWithoutDefault(): void
+    {
+        // This targets the specific branch where allowsNull() is true BUT no default value exists.
+        // The dependency (UnboundInterface) is missing, so it catches NotFoundException.
+        // Then it checks allowsNull() -> true.
+        // Injects null.
+        $instance = $this->container->get(ServiceWithNullableParamNoDefault::class);
+
+        $this->assertNull($instance->dependency);
+    }
+
+    public function testAutowiringFailsForMissingDependency(): void
+    {
+        $this->expectException(ContainerException::class);
+        $this->expectExceptionMessage('could not be resolved');
+
+        $this->container->get(ServiceWithMissingDependency::class);
+    }
+
     public function testAutowiringThrowsExceptionForUnresolvableParameter(): void
     {
         // Teste l'échec de résolution d'une primitive sans défaut
@@ -125,4 +144,22 @@ class ContainerTest extends TestCase
         // Trigger the cycle
         $this->container->get('A');
     }
+}
+
+class ServiceWithNullableParamNoDefault
+{
+    public function __construct(
+        public null|UnboundInterfaceForTest $dependency,
+    ) {}
+}
+
+interface UnboundInterfaceForTest
+{
+}
+
+class ServiceWithMissingDependency
+{
+    public function __construct(
+        public \NonExistentClass $dependency,
+    ) {}
 }
