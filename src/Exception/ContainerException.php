@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Waffle\Commons\Container\Exception;
 
 use Exception;
-use Psr\Container\ContainerExceptionInterface;
+use Waffle\Commons\Contracts\Container\Exception\ContainerExceptionInterface;
 
 /**
  * Base exception for all container-related errors.

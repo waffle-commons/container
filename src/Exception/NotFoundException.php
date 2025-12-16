@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Waffle\Commons\Container\Exception;
 
-use Psr\Container\NotFoundExceptionInterface;
+use Waffle\Commons\Contracts\Container\Exception\NotFoundExceptionInterface;
 
 /**
  * Thrown when a requested entry was not found in the container.
