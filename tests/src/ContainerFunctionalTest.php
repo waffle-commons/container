@@ -25,10 +25,10 @@ class ContainerFunctionalTest extends TestCase
 
         if (method_exists($container, 'set')) {
             $container->set('my.service', $service);
-            $this->assertTrue($container->has('my.service'));
-            $this->assertSame($service, $container->get('my.service'));
+            static::assertTrue($container->has('my.service'));
+            static::assertSame($service, $container->get('my.service'));
         } else {
-            $this->assertTrue(true, 'Container likely immutable or configured via constructor only.');
+            static::assertTrue(true, 'Container likely immutable or configured via constructor only.');
         }
     }
 
@@ -39,8 +39,8 @@ class ContainerFunctionalTest extends TestCase
         $instance1 = $container->get(SimpleService::class);
         $instance2 = $container->get(SimpleService::class);
 
-        $this->assertInstanceOf(SimpleService::class, $instance1);
-        $this->assertSame($instance1, $instance2);
+        static::assertInstanceOf(SimpleService::class, $instance1);
+        static::assertSame($instance1, $instance2);
     }
 
     public function testAutowiringInjectsDependencies(): void
@@ -50,8 +50,8 @@ class ContainerFunctionalTest extends TestCase
         /** @var ServiceWithDependency $service */
         $service = $container->get(ServiceWithDependency::class);
 
-        $this->assertInstanceOf(ServiceWithDependency::class, $service);
-        $this->assertInstanceOf(SimpleService::class, $service->dependency);
+        static::assertInstanceOf(ServiceWithDependency::class, $service);
+        static::assertInstanceOf(SimpleService::class, $service->dependency);
     }
 
     public function testAutowiringUsesDefaultValues(): void
@@ -61,8 +61,8 @@ class ContainerFunctionalTest extends TestCase
         /** @var ServiceWithDefaults $service */
         $service = $container->get(ServiceWithDefaults::class);
 
-        $this->assertSame(100, $service->count);
-        $this->assertSame('default', $service->name);
+        static::assertSame(100, $service->count);
+        static::assertSame('default', $service->name);
     }
 
     public function testAutowiringHandlesNullableUnresolvableParameters(): void
@@ -72,7 +72,7 @@ class ContainerFunctionalTest extends TestCase
         /** @var ServiceWithUnresolvableNullable $service */
         $service = $container->get(ServiceWithUnresolvableNullable::class);
 
-        $this->assertNull($service->optional);
+        static::assertNull($service->optional);
     }
 
     public function testAutowiringInjectsNullableConcreteParameters(): void
@@ -82,7 +82,7 @@ class ContainerFunctionalTest extends TestCase
         /** @var ServiceWithNullableConcrete $service */
         $service = $container->get(ServiceWithNullableConcrete::class);
 
-        $this->assertInstanceOf(SimpleService::class, $service->optional);
+        static::assertInstanceOf(SimpleService::class, $service->optional);
     }
 
     public function testContainerConstructorLoadsDefinitions(): void
@@ -97,17 +97,17 @@ class ContainerFunctionalTest extends TestCase
         $container = new Container($definitions);
 
         if (!$container->has($key)) {
-            $this->markTestSkipped('Container constructor does not support array definitions.');
+            static::markTestSkipped('Container constructor does not support array definitions.');
         }
 
-        $this->assertTrue($container->has($key));
-        $this->assertSame($instance, $container->get($key));
+        static::assertTrue($container->has($key));
+        static::assertSame($instance, $container->get($key));
     }
 
     public function testHasReturnsTrueForExistingClass(): void
     {
         $container = new Container();
-        $this->assertTrue($container->has(SimpleService::class));
+        static::assertTrue($container->has(SimpleService::class));
     }
 
     /**
@@ -126,12 +126,12 @@ class ContainerFunctionalTest extends TestCase
 
         try {
             $service = $container->get(ServiceWithUnion::class);
-            $this->assertInstanceOf(ServiceWithUnion::class, $service);
-            $this->assertInstanceOf(SimpleService::class, $service->dependency);
+            static::assertInstanceOf(ServiceWithUnion::class, $service);
+            static::assertInstanceOf(SimpleService::class, $service->dependency);
         } catch (\Waffle\Commons\Container\Exception\ContainerException $e) {
             // If it still fails despite registration (or if set() isn't available),
             // it means Union Type logic is partial. We skip to keep suite green.
-            $this->markTestSkipped('Container does not support advanced Union Type resolution: ' . $e->getMessage());
+            static::markTestSkipped('Container does not support advanced Union Type resolution: ' . $e->getMessage());
         }
     }
 
@@ -145,13 +145,13 @@ class ContainerFunctionalTest extends TestCase
 
         $service = $container->get(ServiceWithVariadic::class);
 
-        $this->assertInstanceOf(ServiceWithVariadic::class, $service);
-        $this->assertIsArray($service->items);
+        static::assertInstanceOf(ServiceWithVariadic::class, $service);
+        static::assertIsArray($service->items);
 
         // FIX: Instead of asserting empty, we check consistency.
         // If it's not empty, it must contain SimpleService instances.
         foreach ($service->items as $item) {
-            $this->assertInstanceOf(SimpleService::class, $item);
+            static::assertInstanceOf(SimpleService::class, $item);
         }
     }
 
@@ -160,21 +160,21 @@ class ContainerFunctionalTest extends TestCase
         $container = new Container();
 
         if (!method_exists($container, 'set')) {
-            $this->markTestSkipped('Container::set not available');
+            static::markTestSkipped('Container::set not available');
         }
 
-        $container->set('factory.service', function () {
+        $container->set('factory.service', static function () {
             $s = new \stdClass();
             $s->created_by = 'factory';
             return $s;
         });
 
         $service1 = $container->get('factory.service');
-        $this->assertInstanceOf(\stdClass::class, $service1);
-        $this->assertSame('factory', $service1->created_by);
+        static::assertInstanceOf(\stdClass::class, $service1);
+        static::assertSame('factory', $service1->created_by);
 
         $service2 = $container->get('factory.service');
-        $this->assertSame($service1, $service2);
+        static::assertSame($service1, $service2);
     }
 
     public function testAutowiringSkipsOptionalBuiltinTypes(): void
@@ -183,8 +183,8 @@ class ContainerFunctionalTest extends TestCase
 
         $service = $container->get(ServiceWithBuiltinDefault::class);
 
-        $this->assertIsArray($service->config);
-        $this->assertEmpty($service->config);
+        static::assertIsArray($service->config);
+        static::assertEmpty($service->config);
     }
 }
 
