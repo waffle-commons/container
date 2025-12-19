@@ -13,12 +13,6 @@ message = "Avoid `else` clauses."
 count = 1
 
 [[issues]]
-file = "src/Container.php"
-code = "no-redundant-use"
-message = "Unused import: `ReflectionException`."
-count = 1
-
-[[issues]]
 file = "tests/src/AbstractTestCase.php"
 code = "no-redundant-method-override"
 message = "Redundant method override."
@@ -37,27 +31,15 @@ message = "Interface name `InterfaceB` should be suffixed with `Interface`."
 count = 1
 
 [[issues]]
-file = "tests/src/ContainerEdgeCaseTest.php"
-code = "assertion-style"
-message = "Inconsistent assertions style."
-count = 2
-
-[[issues]]
 file = "tests/src/ContainerFunctionalTest.php"
-code = "assertion-style"
-message = "Inconsistent assertions style."
-count = 27
+code = "literal-named-argument"
+message = "Literal argument `'set'` should be passed as a named argument for clarity."
+count = 3
 
 [[issues]]
 file = "tests/src/ContainerFunctionalTest.php"
 code = "no-else-clause"
 message = "Avoid `else` clauses."
-count = 1
-
-[[issues]]
-file = "tests/src/ContainerFunctionalTest.php"
-code = "prefer-static-closure"
-message = "This closure does not use `$this` and should be declared static."
 count = 1
 
 [[issues]]
@@ -68,21 +50,9 @@ count = 1
 
 [[issues]]
 file = "tests/src/ContainerTest.php"
-code = "assertion-style"
-message = "Inconsistent assertions style."
-count = 10
-
-[[issues]]
-file = "tests/src/ContainerTest.php"
 code = "interface-name"
 message = "Interface name `UnboundInterfaceForTest` should be suffixed with `Interface`."
 count = 1
-
-[[issues]]
-file = "tests/src/ContainerTest.php"
-code = "prefer-static-closure"
-message = "This arrow function does not use `$this` and should be declared static."
-count = 2
 
 [[issues]]
 file = "tests/src/ContainerTest.php"

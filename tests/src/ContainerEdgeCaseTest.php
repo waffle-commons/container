@@ -34,13 +34,13 @@ class ContainerEdgeCaseTest extends TestCase
 
         // 1. Autowiring Check: The container SHOULD report true for an existing, instantiable class
         // We use stdClass as a universally available simple class.
-        $this->assertTrue(
+        static::assertTrue(
             $container->has(\stdClass::class),
             'Container::has() should return true for instantiable classes (autowiring).',
         );
 
         // 2. Non-Existent Check: Random strings should return false
-        $this->assertFalse(
+        static::assertFalse(
             $container->has('non_existent_key_' . uniqid()),
             'Container::has() should return false for non-existent services.',
         );
@@ -90,17 +90,17 @@ class ContainerEdgeCaseTest extends TestCase
 
 class CircularA
 {
-    public function __construct(CircularB $b) {}
+    public function __construct(CircularB $_b) {}
 }
 
 class CircularB
 {
-    public function __construct(CircularA $a) {}
+    public function __construct(CircularA $_a) {}
 }
 
 class ClassWithPrimitive
 {
-    public function __construct(int $id) {}
+    public function __construct(int $_id) {}
 }
 
 class ClassWithPrivateConstructor
@@ -110,5 +110,5 @@ class ClassWithPrivateConstructor
 
 class ClassWithUnionType
 {
-    public function __construct(int|string $val) {}
+    public function __construct(int|string $_val) {}
 }

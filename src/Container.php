@@ -6,7 +6,6 @@ namespace Waffle\Commons\Container;
 
 use Closure;
 use ReflectionClass;
-use ReflectionException;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Waffle\Commons\Container\Exception\ContainerException;
@@ -32,6 +31,7 @@ final class Container implements ContainerInterface
      * @throws ContainerException Error while retrieving the entry.
      * @throws NotFoundException  No entry was found for this identifier.
      */
+    #[\Override]
     public function get(string $id): mixed
     {
         // 1. Return cached instance if available
@@ -61,6 +61,7 @@ final class Container implements ContainerInterface
      * Returns true if the container can return an entry for the given identifier.
      * Returns false otherwise.
      */
+    #[\Override]
     public function has(string $id): bool
     {
         return isset($this->definitions[$id]) || class_exists($id);
@@ -72,6 +73,7 @@ final class Container implements ContainerInterface
      * @param string $id The service identifier (usually FQCN).
      * @param string|callable|object $concrete The concrete implementation or factory.
      */
+    #[\Override]
     public function set(string $id, object|callable|string $concrete): void
     {
         $this->definitions[$id] = $concrete;

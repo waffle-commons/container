@@ -80,7 +80,7 @@ class ContainerDependencyResolutionTest extends TestCase
 class ClassWithUntypedParameter
 {
     // Container sees $param but no type -> Exception
-    public function __construct($param) {}
+    public function __construct($_param) {}
 }
 
 interface InterfaceA
@@ -94,12 +94,12 @@ interface InterfaceB
 class ClassWithIntersectionType
 {
     // Container cannot find ONE service that implies BOTH A and B automatically
-    public function __construct(InterfaceA&InterfaceB $service) {}
+    public function __construct(InterfaceA&InterfaceB $_service) {}
 }
 
 class ClassWithBrokenDependency
 {
-    public function __construct(ClassWithUntypedParameter $child) {}
+    public function __construct(ClassWithUntypedParameter $_child) {}
 }
 
 abstract class AbstractServiceClass

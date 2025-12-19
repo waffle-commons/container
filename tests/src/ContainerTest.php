@@ -24,6 +24,7 @@ class ContainerTest extends TestCase
 {
     private Container $container;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->container = new Container();
@@ -31,7 +32,7 @@ class ContainerTest extends TestCase
 
     public function testImplementsPsrInterface(): void
     {
-        $this->assertInstanceOf(ContainerInterface::class, $this->container);
+        static::assertInstanceOf(ContainerInterface::class, $this->container);
     }
 
     public function testSetAndGetSimpleService(): void
@@ -39,18 +40,18 @@ class ContainerTest extends TestCase
         $service = new \stdClass();
         $this->container->set('my_service', $service);
 
-        $this->assertSame($service, $this->container->get('my_service'));
+        static::assertSame($service, $this->container->get('my_service'));
     }
 
     public function testHasReturnsTrueForExistingService(): void
     {
         $this->container->set('my_service', new \stdClass());
-        $this->assertTrue($this->container->has('my_service'));
+        static::assertTrue($this->container->has('my_service'));
     }
 
     public function testHasReturnsFalseForMissingService(): void
     {
-        $this->assertFalse($this->container->has('non_existent_service'));
+        static::assertFalse($this->container->has('non_existent_service'));
     }
 
     public function testGetThrowsNotFoundException(): void
@@ -63,7 +64,7 @@ class ContainerTest extends TestCase
     {
         // Teste l'instanciation d'une classe sans constructeur
         $instance = $this->container->get(\stdClass::class);
-        $this->assertInstanceOf(\stdClass::class, $instance);
+        static::assertInstanceOf(\stdClass::class, $instance);
     }
 
     public function testAutowiringResolvesDependenciesRecursively(): void
@@ -71,8 +72,8 @@ class ContainerTest extends TestCase
         // Teste resolveDependencies() avec une vraie classe
         $instance = $this->container->get(ServiceWithDependencies::class);
 
-        $this->assertInstanceOf(ServiceWithDependencies::class, $instance);
-        $this->assertInstanceOf(ServiceWithoutDependencies::class, $instance->service);
+        static::assertInstanceOf(ServiceWithDependencies::class, $instance);
+        static::assertInstanceOf(ServiceWithoutDependencies::class, $instance->service);
     }
 
     public function testAutowiringUsesDefaultValues(): void
@@ -80,7 +81,7 @@ class ContainerTest extends TestCase
         // Teste la branche "isDefaultValueAvailable" de resolveDependencies
         $instance = $this->container->get(ServiceWithDefaultParam::class);
 
-        $this->assertSame(42, $instance->value);
+        static::assertSame(42, $instance->value);
     }
 
     public function testAutowiringHandlesNullableDependencies(): void
@@ -90,7 +91,7 @@ class ContainerTest extends TestCase
         // Mais comme le paramètre est nullable, le conteneur doit injecter null.
         $instance = $this->container->get(ServiceWithNullableParam::class);
 
-        $this->assertNull($instance->container);
+        static::assertNull($instance->container);
     }
 
     public function testAutowiringHandlesNullableDependenciesWithoutDefault(): void
@@ -101,7 +102,7 @@ class ContainerTest extends TestCase
         // Injects null.
         $instance = $this->container->get(ServiceWithNullableParamNoDefault::class);
 
-        $this->assertNull($instance->dependency);
+        static::assertNull($instance->dependency);
     }
 
     public function testAutowiringFailsForMissingDependency(): void
@@ -138,8 +139,8 @@ class ContainerTest extends TestCase
         $this->expectExceptionMessage('Circular dependency detected');
 
         // Create a cycle: Service A depends on B, B depends on A
-        $this->container->set('A', fn(ContainerInterface $c) => $c->get('B'));
-        $this->container->set('B', fn(ContainerInterface $c) => $c->get('A'));
+        $this->container->set('A', static fn(ContainerInterface $c) => $c->get('B'));
+        $this->container->set('B', static fn(ContainerInterface $c) => $c->get('A'));
 
         // Trigger the cycle
         $this->container->get('A');
