@@ -1,0 +1,715 @@
+variant = "loose"
+
+[[issues]]
+file = "src/Container.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `waffle\commons\container\container::autowire`: expected `object`, but found `null|object`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `waffle\commons\container\container::build`: expected `object`, but found `(closure(...mixed): mixed)|object`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `waffle\commons\container\container::build`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "nullable-return-statement"
+message = 'Function `waffle\commons\container\container::autowire` is declared to return `object` but possibly returns a nullable value (inferred as `null|object`).'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$name`."
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `ReflectionException` in `Waffle\Commons\Container\Container::autowire`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `ReflectionException` in `Waffle\Commons\Container\Container::resolveDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testGetThrowsExceptionForAbstractClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testResolveDependenciesBubblesExceptionFromChild`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testResolveDependenciesFailsOnIntersectionType`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testResolveDependenciesFailsOnUntypedParameter`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testGetThrowsExceptionForAbstractClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testResolveDependenciesBubblesExceptionFromChild`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testResolveDependenciesFailsOnIntersectionType`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerDependencyResolutionTest::testResolveDependenciesFailsOnUntypedParameter`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "too-many-arguments"
+message = 'Class `Waffle\Commons\Container\Container` has no `__construct` method, but arguments were provided to `new`.'
+count = 6
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testHasReturnsCorrectly`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testCircularDependencyThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testComplexUnionTypeWithoutDefaultThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testGetThrowsNotFoundExceptionForNonExistentService`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testPrivateConstructorThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testUnresolvablePrimitiveParameterThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testCircularDependencyThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testComplexUnionTypeWithoutDefaultThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testGetThrowsNotFoundExceptionForNonExistentService`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testPrivateConstructorThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerEdgeCaseTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerEdgeCaseTest::testUnresolvablePrimitiveParameterThrowsException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 8
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "redundant-type-comparison"
+message = "Redundant type assertion: `$service->items` of type `array<array-key, mixed>` is always not `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "too-many-arguments"
+message = 'Class `Waffle\Commons\Container\Container` has no `__construct` method, but arguments were provided to `new`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesVariadicArguments`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsNullableConcreteParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringResolvesUnionTypeIfPossible`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringSkipsOptionalBuiltinTypes`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testGetReturnsSingletonInstance`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetClosureDefinition`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesNullableUnresolvableParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesVariadicArguments`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsNullableConcreteParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringResolvesUnionTypeIfPossible`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringSkipsOptionalBuiltinTypes`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringUsesDefaultValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testContainerConstructorLoadsDefinitions`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testGetReturnsSingletonInstance`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testHasReturnsTrueForExistingClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetClosureDefinition`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetManualEntry`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\GeneratorNotSupportedException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringSkipsOptionalBuiltinTypes`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\SkippedWithMessageException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringResolvesUnionTypeIfPossible`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\SkippedWithMessageException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testContainerConstructorLoadsDefinitions`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\SkippedWithMessageException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetClosureDefinition`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesVariadicArguments`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsNullableConcreteParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringResolvesUnionTypeIfPossible`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testGetReturnsSingletonInstance`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetClosureDefinition`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesNullableUnresolvableParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesVariadicArguments`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsNullableConcreteParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringSkipsOptionalBuiltinTypes`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringUsesDefaultValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testContainerConstructorLoadsDefinitions`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testGetReturnsSingletonInstance`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetClosureDefinition`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetManualEntry`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesNullableUnresolvableParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringHandlesVariadicArguments`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringInjectsNullableConcreteParameters`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringSkipsOptionalBuiltinTypes`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringUsesDefaultValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testContainerConstructorLoadsDefinitions`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testGetReturnsSingletonInstance`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetClosureDefinition`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testSetAndGetManualEntry`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 5
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 3
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringResolvesDependenciesRecursively`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringSimpleClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Container\ContainerTest::testImplementsPsrInterface`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringHandlesNullableDependenciesWithoutDefault`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringHandlesNullableDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringResolvesDependenciesRecursively`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringSimpleClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringUsesDefaultValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testHasReturnsFalseForMissingService`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testHasReturnsTrueForExistingService`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testImplementsPsrInterface`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Container\ContainerTest::testSetAndGetSimpleService`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringResolvesDependenciesRecursively`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringSimpleClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Container\ContainerTest::testImplementsPsrInterface`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringFailsForMissingDependency`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringHandlesNullableDependenciesWithoutDefault`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringHandlesNullableDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringResolvesDependenciesRecursively`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringSimpleClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringThrowsExceptionForUninstantiableClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringThrowsExceptionForUnresolvableParameter`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringUsesDefaultValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testCircularDependencyDetection`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testGetThrowsNotFoundException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testSetAndGetSimpleService`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringFailsForMissingDependency`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringHandlesNullableDependenciesWithoutDefault`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringHandlesNullableDependencies`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringResolvesDependenciesRecursively`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringSimpleClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringThrowsExceptionForUninstantiableClass`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringThrowsExceptionForUnresolvableParameter`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testAutowiringUsesDefaultValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testCircularDependencyDetection`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testGetThrowsNotFoundException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\NotFoundException` in `WaffleTests\Commons\Container\ContainerTest::testSetAndGetSimpleService`.'
+count = 1

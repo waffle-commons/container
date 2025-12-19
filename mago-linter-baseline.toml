@@ -1,0 +1,61 @@
+variant = "loose"
+
+[[issues]]
+file = "src/Container.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Container.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 1
+
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
+code = "no-redundant-method-override"
+message = "Redundant method override."
+count = 2
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "interface-name"
+message = "Interface name `InterfaceA` should be suffixed with `Interface`."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerDependencyResolutionTest.php"
+code = "interface-name"
+message = "Interface name `InterfaceB` should be suffixed with `Interface`."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'set'` should be passed as a named argument for clarity."
+count = 3
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "too-many-methods"
+message = "Class has too many methods."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "interface-name"
+message = "Interface name `UnboundInterfaceForTest` should be suffixed with `Interface`."
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "too-many-methods"
+message = "Class has too many methods."
+count = 1
