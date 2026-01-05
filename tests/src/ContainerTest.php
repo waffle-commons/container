@@ -16,9 +16,7 @@ use WaffleTests\Commons\Container\Helper\ServiceWithoutDependencies;
 use WaffleTests\Commons\Container\Helper\ServiceWithUnresolvableParam;
 
 // Local helper for uninstantiable class test
-abstract class AbstractHelperClass
-{
-}
+abstract class AbstractHelperClass {}
 
 class ContainerTest extends TestCase
 {
@@ -150,13 +148,11 @@ class ContainerTest extends TestCase
 class ServiceWithNullableParamNoDefault
 {
     public function __construct(
-        public null|UnboundInterfaceForTest $dependency,
+        public ?UnboundInterfaceForTest $dependency,
     ) {}
 }
 
-interface UnboundInterfaceForTest
-{
-}
+interface UnboundInterfaceForTest {}
 
 class ServiceWithMissingDependency
 {

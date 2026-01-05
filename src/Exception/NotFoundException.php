@@ -9,6 +9,4 @@ use Waffle\Commons\Contracts\Container\Exception\NotFoundExceptionInterface;
 /**
  * Thrown when a requested entry was not found in the container.
  */
-class NotFoundException extends ContainerException implements NotFoundExceptionInterface
-{
-}
+class NotFoundException extends ContainerException implements NotFoundExceptionInterface {}

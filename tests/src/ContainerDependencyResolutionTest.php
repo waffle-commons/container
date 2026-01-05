@@ -83,13 +83,9 @@ class ClassWithUntypedParameter
     public function __construct($_param) {}
 }
 
-interface InterfaceA
-{
-}
+interface InterfaceA {}
 
-interface InterfaceB
-{
-}
+interface InterfaceB {}
 
 class ClassWithIntersectionType
 {

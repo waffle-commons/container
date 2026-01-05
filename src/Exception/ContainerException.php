@@ -10,6 +10,4 @@ use Waffle\Commons\Contracts\Container\Exception\ContainerExceptionInterface;
 /**
  * Base exception for all container-related errors.
  */
-class ContainerException extends Exception implements ContainerExceptionInterface
-{
-}
+class ContainerException extends Exception implements ContainerExceptionInterface {}

@@ -10,6 +10,6 @@ class ServiceWithNullableParam
 {
     // Dependency injection of an interface that might not exist in container
     public function __construct(
-        public null|ContainerInterface $container = null,
+        public ?ContainerInterface $container = null,
     ) {}
 }

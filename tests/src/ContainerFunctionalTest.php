@@ -190,17 +190,11 @@ class ContainerFunctionalTest extends TestCase
 
 // --- HELPER CLASSES ---
 
-class SimpleService
-{
-}
+class SimpleService {}
 
-interface UnboundInterface
-{
-}
+interface UnboundInterface {}
 
-class NonExistentService
-{
-}
+class NonExistentService {}
 
 class ServiceWithDependency
 {
@@ -220,14 +214,14 @@ class ServiceWithDefaults
 class ServiceWithUnresolvableNullable
 {
     public function __construct(
-        public null|UnboundInterface $optional = null,
+        public ?UnboundInterface $optional = null,
     ) {}
 }
 
 class ServiceWithNullableConcrete
 {
     public function __construct(
-        public null|SimpleService $optional = null,
+        public ?SimpleService $optional = null,
     ) {}
 }
 
