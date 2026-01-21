@@ -13,6 +13,12 @@ message = "Avoid `else` clauses."
 count = 1
 
 [[issues]]
+file = "src/Container.php"
+code = "prefer-early-continue"
+message = "Consider using early continue pattern to reduce nesting."
+count = 1
+
+[[issues]]
 file = "tests/src/AbstractTestCase.php"
 code = "no-redundant-method-override"
 message = "Redundant method override."

@@ -11,6 +11,7 @@ use ReflectionParameter;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Container\Exception\NotFoundException;
 use Waffle\Commons\Contracts\Container\ContainerInterface;
+use Waffle\Commons\Contracts\Service\ResettableInterface;
 
 final class Container implements ContainerInterface
 {
@@ -177,5 +178,19 @@ final class Container implements ContainerInterface
         }
 
         return $dependencies;
+    }
+
+    /**
+     * Clean all stateful services
+     * This method is called by the Kernel at the end of each worker loop
+     */
+    public function reset(): void
+    {
+        foreach ($this->instances as $_ => $service) {
+            if ($service instanceof ResettableInterface) {
+                // The service knows how to clean itself
+                $service->reset();
+            }
+        }
     }
 }

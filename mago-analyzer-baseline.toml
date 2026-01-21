@@ -20,6 +20,18 @@ count = 1
 
 [[issues]]
 file = "src/Container.php"
+code = "non-existent-class-like"
+message = 'Class, Interface, or Trait `Waffle\Commons\Contracts\Service\ResettableInterface` does not exist.'
+count = 2
+
+[[issues]]
+file = "src/Container.php"
+code = "non-existent-method"
+message = 'Method `reset` does not exist on type `Waffle\Commons\Contracts\Service\ResettableInterface`.'
+count = 1
+
+[[issues]]
+file = "src/Container.php"
 code = "nullable-return-statement"
 message = 'Function `waffle\commons\container\container::autowire` is declared to return `object` but possibly returns a nullable value (inferred as `null|object`).'
 count = 1
