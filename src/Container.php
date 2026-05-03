@@ -11,6 +11,7 @@ use ReflectionParameter;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Container\Exception\NotFoundException;
 use Waffle\Commons\Contracts\Container\ContainerInterface;
+use Waffle\Commons\Contracts\Service\ResettableInterface;
 
 final class Container implements ContainerInterface
 {
@@ -22,6 +23,14 @@ final class Container implements ContainerInterface
 
     /** @var array<string, true> Stack of services currently being resolved (for circular dependency detection) */
     private array $resolving = [];
+
+    /** Prevents overriding core services after the container is locked */
+    private bool $locked = false;
+
+    /** @var array<string, true> Core service identifiers that must never be overridden */
+    private const CORE_SERVICES = [
+        \Psr\Container\ContainerInterface::class => true,
+    ];
 
     /**
      * Finds an entry of the container by its identifier and returns it.
@@ -72,11 +81,29 @@ final class Container implements ContainerInterface
      *
      * @param string $id The service identifier (usually FQCN).
      * @param string|callable|object $concrete The concrete implementation or factory.
+     * @throws ContainerException If the container is locked or if attempting to override a core service.
      */
     #[\Override]
     public function set(string $id, object|callable|string $concrete): void
     {
+        if ($this->locked) {
+            throw new ContainerException(sprintf('Cannot register service "%s": container is locked after boot.', $id));
+        }
+
+        if (isset(self::CORE_SERVICES[$id]) && isset($this->definitions[$id])) {
+            throw new ContainerException(sprintf('Cannot override core service "%s".', $id));
+        }
+
         $this->definitions[$id] = $concrete;
+    }
+
+    /**
+     * Locks the container to prevent further service registration.
+     * Call this after the boot sequence is complete.
+     */
+    public function lock(): void
+    {
+        $this->locked = true;
     }
 
     /**
@@ -177,5 +204,19 @@ final class Container implements ContainerInterface
         }
 
         return $dependencies;
+    }
+
+    /**
+     * Clean all stateful services
+     * This method is called by the Kernel at the end of each worker loop
+     */
+    public function reset(): void
+    {
+        foreach ($this->instances as $_ => $service) {
+            if ($service instanceof ResettableInterface) {
+                // The service knows how to clean itself
+                $service->reset();
+            }
+        }
     }
 }
