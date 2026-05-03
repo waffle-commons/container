@@ -3,26 +3,26 @@ variant = "loose"
 [[issues]]
 file = "src/Container.php"
 code = "invalid-return-statement"
-message = 'Invalid return type for function `waffle\commons\container\container::autowire`: expected `object`, but found `null|object`.'
+message = 'Invalid return type for function `Waffle\Commons\Container\Container::autowire`: expected `object`, but found `null|object`.'
 count = 1
 
 [[issues]]
 file = "src/Container.php"
 code = "invalid-return-statement"
-message = 'Invalid return type for function `waffle\commons\container\container::build`: expected `object`, but found `(closure(...mixed): mixed)|object`.'
+message = 'Invalid return type for function `Waffle\Commons\Container\Container::build`: expected `object`, but found `(closure(...mixed): mixed)|object`.'
 count = 1
 
 [[issues]]
 file = "src/Container.php"
 code = "mixed-return-statement"
-message = 'Could not infer a precise return type for function `waffle\commons\container\container::build`. Saw type `mixed`.'
+message = 'Could not infer a precise return type for function `Waffle\Commons\Container\Container::build`. Saw type `mixed`.'
 count = 1
 
 [[issues]]
 file = "src/Container.php"
 code = "non-existent-class-like"
 message = 'Class, Interface, or Trait `Waffle\Commons\Contracts\Service\ResettableInterface` does not exist.'
-count = 2
+count = 3
 
 [[issues]]
 file = "src/Container.php"
@@ -33,7 +33,7 @@ count = 1
 [[issues]]
 file = "src/Container.php"
 code = "nullable-return-statement"
-message = 'Function `waffle\commons\container\container::autowire` is declared to return `object` but possibly returns a nullable value (inferred as `null|object`).'
+message = 'Function `Waffle\Commons\Container\Container::autowire` is declared to return `object` but possibly returns a nullable value (inferred as `null|object`).'
 count = 1
 
 [[issues]]
@@ -399,6 +399,12 @@ count = 1
 [[issues]]
 file = "tests/src/ContainerFunctionalTest.php"
 code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringResolvesUnionTypeIfPossible`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerFunctionalTest.php"
+code = "unhandled-thrown-type"
 message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerFunctionalTest::testAutowiringSkipsOptionalBuiltinTypes`.'
 count = 1
 
@@ -503,6 +509,12 @@ file = "tests/src/ContainerTest.php"
 code = "mixed-property-access"
 message = "Attempting to access a property on a non-object type (`mixed`)."
 count = 3
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "non-existent-class-like"
+message = "Cannot find class, interface, enum, or type alias `NonExistentClass`."
+count = 1
 
 [[issues]]
 file = "tests/src/ContainerTest.php"
@@ -652,6 +664,12 @@ count = 1
 file = "tests/src/ContainerTest.php"
 code = "unhandled-thrown-type"
 message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testGetThrowsNotFoundException`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ContainerTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Container\Exception\ContainerException` in `WaffleTests\Commons\Container\ContainerTest::testHasReturnsTrueForExistingService`.'
 count = 1
 
 [[issues]]
