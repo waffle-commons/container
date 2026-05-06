@@ -90,7 +90,7 @@ final class Container implements ContainerInterface
             throw new ContainerException(sprintf('Cannot register service "%s": container is locked after boot.', $id));
         }
 
-        if (isset(self::CORE_SERVICES[$id]) && isset($this->definitions[$id])) {
+        if (isset(self::CORE_SERVICES[$id], $this->definitions[$id])) {
             throw new ContainerException(sprintf('Cannot override core service "%s".', $id));
         }
 
@@ -213,10 +213,11 @@ final class Container implements ContainerInterface
     public function reset(): void
     {
         foreach ($this->instances as $_ => $service) {
-            if ($service instanceof ResettableInterface) {
-                // The service knows how to clean itself
-                $service->reset();
+            if (!$service instanceof ResettableInterface) {
+                continue;
             }
+
+            $service->reset();
         }
     }
 }
