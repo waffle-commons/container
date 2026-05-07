@@ -7,6 +7,8 @@ namespace WaffleTests\Commons\Container;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Waffle\Commons\Container\Container;
+use Waffle\Commons\Container\Exception\ContainerException;
+use Waffle\Commons\Container\Exception\NotFoundException;
 
 /**
  * Targets the "Happy Path" and Coverage of the Container:
@@ -17,6 +19,10 @@ use Waffle\Commons\Container\Container;
 #[CoversClass(Container::class)]
 class ContainerFunctionalTest extends TestCase
 {
+    /**
+     * @throws NotFoundException
+     * @throws ContainerException
+     */
     public function testSetAndGetManualEntry(): void
     {
         $container = new Container();
@@ -27,7 +33,9 @@ class ContainerFunctionalTest extends TestCase
             $container->set('my.service', $service);
             static::assertTrue($container->has('my.service'));
             static::assertSame($service, $container->get('my.service'));
-        } else {
+        }
+
+        if (!method_exists($container, 'set')) {
             static::assertTrue(true, 'Container likely immutable or configured via constructor only.');
         }
     }

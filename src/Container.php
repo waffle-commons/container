@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Waffle\Commons\Container;
 
 use Closure;
-use ReflectionClass;
-use ReflectionNamedType;
-use ReflectionParameter;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Container\Exception\NotFoundException;
 use Waffle\Commons\Contracts\Container\ContainerInterface;
@@ -15,7 +12,7 @@ use Waffle\Commons\Contracts\Service\ResettableInterface;
 
 final class Container implements ContainerInterface
 {
-    /** @var array<string, object> Cached instances of services */
+    /** @var array<string, null|object|string> Cached instances of services */
     private array $instances = [];
 
     /** @var array<string, string|Closure|object|callable> Definitions of services */
@@ -27,10 +24,21 @@ final class Container implements ContainerInterface
     /** Prevents overriding core services after the container is locked */
     private bool $locked = false;
 
+    /** Prevents overriding core services after the container is locked */
+    private bool $checks = false;
+
     /** @var array<string, true> Core service identifiers that must never be overridden */
     private const CORE_SERVICES = [
         \Psr\Container\ContainerInterface::class => true,
     ];
+
+    /**
+     * @param array<string, string|Closure|object|callable> $definitions Pre-loaded service definitions.
+     */
+    public function __construct(array $definitions = [])
+    {
+        $this->definitions = $definitions;
+    }
 
     /**
      * Finds an entry of the container by its identifier and returns it.
@@ -43,14 +51,10 @@ final class Container implements ContainerInterface
     #[\Override]
     public function get(string $id): mixed
     {
-        // 1. Return cached instance if available
-        if (isset($this->instances[$id])) {
-            return $this->instances[$id];
-        }
+        $this->performChecks(id: $id);
 
-        // 2. Check for circular dependency
-        if (isset($this->resolving[$id])) {
-            throw new ContainerException("Circular dependency detected while resolving service \"{$id}\".");
+        if ($this->checks) {
+            return $this->instances[$id];
         }
 
         $this->resolving[$id] = true;
@@ -73,6 +77,7 @@ final class Container implements ContainerInterface
     #[\Override]
     public function has(string $id): bool
     {
+        // @mago-ignore lint:no-isset
         return isset($this->definitions[$id]) || class_exists($id);
     }
 
@@ -90,7 +95,7 @@ final class Container implements ContainerInterface
             throw new ContainerException(sprintf('Cannot register service "%s": container is locked after boot.', $id));
         }
 
-        if (isset(self::CORE_SERVICES[$id], $this->definitions[$id])) {
+        if ((self::CORE_SERVICES[$id] ?? null) !== null && ($this->definitions[$id] ?? null) !== null) {
             throw new ContainerException(sprintf('Cannot override core service "%s".', $id));
         }
 
@@ -112,7 +117,7 @@ final class Container implements ContainerInterface
      * @throws ContainerException
      * @throws NotFoundException
      */
-    private function build(string $id): object
+    private function build(string $id): null|object|string
     {
         $concrete = $this->definitions[$id] ?? $id;
 
@@ -128,82 +133,23 @@ final class Container implements ContainerInterface
 
         // Handle class strings (Autowiring)
         if (is_string($concrete) && class_exists($concrete)) {
-            return $this->autowire($concrete);
+            return new Autowire()->load(container: $this, class: $concrete);
         }
 
         throw new NotFoundException("Service or class \"{$id}\" not found.");
     }
 
-    /**
-     * Resolves a class using reflection (Autowiring).
-     *
-     * @param class-string $class
-     * @throws ContainerException
-     */
-    private function autowire(string $class): object
+    private function performChecks(string $id): void
     {
-        $reflector = new ReflectionClass($class);
-
-        if (!$reflector->isInstantiable()) {
-            throw new ContainerException("Class \"{$class}\" is not instantiable.");
+        // 1. Return cached instance if available
+        if (array_key_exists(key: $id, array: $this->instances) && $this->instances[$id]) {
+            $this->checks = true;
         }
 
-        $constructor = $reflector->getConstructor();
-
-        // If no constructor, simple instantiation
-        if (null === $constructor) {
-            return $reflector->newInstance();
+        // 2. Check for circular dependency
+        if (array_key_exists(key: $id, array: $this->resolving) && $this->resolving[$id]) {
+            throw new ContainerException("Circular dependency detected while resolving service \"{$id}\".");
         }
-
-        // Resolve dependencies
-        $dependencies = $this->resolveDependencies($constructor->getParameters());
-
-        return $reflector->newInstanceArgs($dependencies);
-    }
-
-    /**
-     * @param ReflectionParameter[] $parameters
-     * @return array<int, mixed>
-     * @throws ContainerException
-     */
-    private function resolveDependencies(array $parameters): array
-    {
-        $dependencies = [];
-
-        foreach ($parameters as $parameter) {
-            $type = $parameter->getType();
-
-            // Case 1: No type or primitive type -> Use default value if available
-            if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
-                if ($parameter->isDefaultValueAvailable()) {
-                    $dependencies[] = $parameter->getDefaultValue();
-                    continue;
-                }
-
-                throw new ContainerException("Cannot resolve primitive parameter \"{$parameter->getName()}\".");
-            }
-
-            // Case 2: Class/Interface type -> Recursively resolve from container
-            /** @var string $name */
-            $name = $type->getName();
-
-            try {
-                $dependencies[] = $this->get($name);
-            } catch (NotFoundException $e) {
-                // If not found but optional (nullable), allow null
-                if ($parameter->allowsNull()) {
-                    $dependencies[] = null;
-                } else {
-                    throw new ContainerException(
-                        "Dependency \"{$name}\" required by parameter \"{$parameter->getName()}\" could not be resolved.",
-                        0,
-                        $e,
-                    );
-                }
-            }
-        }
-
-        return $dependencies;
     }
 
     /**
