@@ -10,7 +10,6 @@ use Waffle\Commons\Container\Autowire;
 use Waffle\Commons\Container\Container;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Contracts\Service\ResettableInterface;
-use WaffleTests\Commons\Container\Helper\ServiceWithDefaultParam;
 use WaffleTests\Commons\Container\Helper\ServiceWithIntersectionParam;
 use WaffleTests\Commons\Container\Helper\ServiceWithoutDependencies;
 use WaffleTests\Commons\Container\Helper\ServiceWithUnionAndDefault;
