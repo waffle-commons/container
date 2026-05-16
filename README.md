@@ -9,7 +9,10 @@
 Waffle Container Component
 ==========================
 
-A lightweight, strict, and fully compliant PSR-11 Dependency Injection Container implementation for the Waffle Framework.
+> **Release:** `v0.1.0-beta0`
+> **PSR Compliance:** PSR-11 (`Psr\Container\ContainerInterface`)
+
+A strict PSR-11 service container with reflection-based autowiring, circular-dependency detection, and worker-mode resettability. Core services (the PSR-11 `ContainerInterface` itself) are locked from override after registration.
 
 ## 📦 Installation
 
@@ -17,105 +20,71 @@ A lightweight, strict, and fully compliant PSR-11 Dependency Injection Container
 composer require waffle-commons/container
 ```
 
-## 🚀 Usage
+## 🧱 Surface
 
-### Basic Usage
+| Class | Role |
+| :--- | :--- |
+| `Waffle\Commons\Container\Container` | The container. Implements `Waffle\Commons\Contracts\Container\ContainerInterface` (PSR-11 + `ResettableInterface`). |
+| `Waffle\Commons\Container\Autowire` | Reflection-based autowiring helper used by `Container::build()` to resolve constructor parameters. |
+| `Waffle\Commons\Container\Exception\ContainerException` | Thrown for retrieval / resolution failures. |
+| `Waffle\Commons\Container\Exception\NotFoundException` | Thrown when `get($id)` cannot resolve the identifier. |
+
+## 🚀 Usage
 
 ```php
 use Waffle\Commons\Container\Container;
 
-$container = new Container();
+$container = new Container([
+    // Direct instance
+    LoggerInterface::class => new StreamLogger(),
 
-// Register a simple value
-$container->set('api_key', 'secret-123');
+    // Class string — autowired via reflection on first get()
+    UserService::class => UserService::class,
 
-// Register a closure (lazy loading)
-$container->set('database', function () {
-    return new DatabaseConnection('localhost', 'root', 'password');
-});
+    // Factory closure
+    'app.config' => static fn() => new Config(__DIR__ . '/config', 'prod'),
+]);
 
-// Register a service
-$container->set(MyService::class, new MyService());
+$logger = $container->get(LoggerInterface::class);
+$exists = $container->has(UserService::class);
 
-// Retrieve services
-$apiKey = $container->get('api_key');
-$db = $container->get('database');
-$service = $container->get(MyService::class);
+$container->set('db.cache', new ArrayCache());
 ```
 
-### Autowiring
-
-The container supports automatic dependency resolution (autowiring) for concrete classes.
+The exact public signature, verbatim from `Waffle\Commons\Contracts\Container\ContainerInterface`:
 
 ```php
-class Database { ... }
-
-class UserRepository {
-    public function __construct(private Database $db) {}
-}
-
-// Automatically resolves Database dependency
-$repo = $container->get(UserRepository::class);
+public function get(string $id): mixed;
+public function has(string $id): bool;
+public function set(string $id, object|callable|string $concrete): void;
+public function reset(): void; // from ResettableInterface
 ```
 
-### Advanced Autowiring
+## 🔁 Worker-mode reset
 
-The container handles complex cases:
+`Container` implements `ResettableInterface`. After each request, the kernel calls `reset()` so the container drops its instance cache while keeping the registered definitions, preventing user-context leaks across FrankenPHP worker requests.
 
-*   **Default Values:** If a constructor parameter has a default value (e.g., `int $limit = 10`), it is used if no other value is found.
+## 🛡️ Locked core services
 
-*   **Nullable Types:** If a dependency is not found but the parameter is nullable (e.g., `?Logger $logger`), `null` is injected.
+The constant `Container::CORE_SERVICES` lists identifiers that **must not** be redefined once registered. The PSR-11 `ContainerInterface` itself is in that list — any attempt to override it after the container is built throws `ContainerException`.
 
-*   **Recursion:** It can resolve chains like Controller -> Service -> Repository -> Database -> Config.
+## 🔄 Circular-dependency detection
 
+`Container::get($id)` tracks the resolution stack in `$resolving` and throws `ContainerException` if a cycle is detected before infinite recursion can occur.
 
-### Exceptions
+## 🐘 PHP 8.5 features used
 
-The component throws PSR-11 compliant exceptions:
+- `final class Container` — no subclassing.
+- Typed properties throughout.
+- Typed constants for service registries: `private const CORE_SERVICES = [...];`.
+- `#[\Override]` on every method that overrides PSR-11.
 
-*   `Waffle\Commons\Container\Exception\NotFoundException`: Thrown when a requested identifier is not found and cannot be autowired.
-
-*   `Waffle\Commons\Container\Exception\ContainerException`: Thrown for general errors, such as:
-
-    *   Circular dependencies.
-
-    *   Uninstantiable classes (abstract classes, interfaces without implementation).
-
-    *   Unresolvable parameters (primitive types without default values).
-
-
-### PSR-11 Compliance
-
-This container implements `Psr\Container\ContainerInterface`, making it compatible with any library that consumes PSR-11 containers.
-
-This component provides a robust foundation for managing dependencies with powerful features like autowiring and circular dependency detection, while adhering strictly to PHP standards.
-
-Features
---------
-
-*   **PSR-11 Compliance:** Fully implements `Psr\Container\ContainerInterface`.
-
-*   **Autowiring:** Automatically resolves dependencies for classes.
-*   **Interface Binding:** Bind interfaces to concrete implementations.
-*   **Factory Support:** Register closures as factories for complex services.
-*   **Circular Dependency Detection:** Throws an exception if a circular dependency is detected.
-*   **PSR-11 Compliant:** Fully compatible with the PHP Standard Recommendation.
-
-Testing
--------
-
-To run the tests, use the following command:
+## 🧪 Testing
 
 ```bash
-composer tests
+docker exec -w /waffle-commons/container waffle-dev composer tests
 ```
 
-Contributing
-------------
+## 📄 License
 
-Contributions are welcome! Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
-
-License
--------
-
-This project is licensed under the MIT License. See the [LICENSE.md](./LICENSE.md) file for details.
+MIT — see [LICENSE.md](./LICENSE.md).
