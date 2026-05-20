@@ -51,6 +51,13 @@ final class Container implements ContainerInterface
     #[\Override]
     public function get(string $id): mixed
     {
+        // Beta-1 hardening (audit: "Eliminate Exceptions for Control Flow"):
+        // fail fast on unknown identifiers so callers can use `has()` as a
+        // cheap precondition instead of catching NotFoundException downstream.
+        if (!array_key_exists($id, $this->instances) && !$this->has($id)) {
+            throw new NotFoundException("Service or class \"{$id}\" not found.");
+        }
+
         $this->performChecks(id: $id);
 
         if ($this->checks) {
