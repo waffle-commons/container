@@ -194,6 +194,46 @@ class ContainerFunctionalTest extends TestCase
         static::assertIsArray($service->config);
         static::assertEmpty($service->config);
     }
+
+    /**
+     * Regression for the Beta-1 DI statefulness bug: once any service was served
+     * from the instance cache, the old `$this->checks` flag stuck `true` and every
+     * later *uncached* get() returned null instead of building. This reproduces the
+     * exact [build → cache hit → fresh build] ordering that triggered it.
+     */
+    public function testFreshServiceResolvesAfterUnrelatedCacheHit(): void
+    {
+        $container = new Container();
+        $container->set('alpha', static fn(): \stdClass => new \stdClass());
+        $container->set('beta', static fn(): \stdClass => new \stdClass());
+
+        $alpha1 = $container->get('alpha');
+        $alpha2 = $container->get('alpha'); // cache hit — used to poison the container
+        $beta = $container->get('beta'); // must still build, not return null
+
+        static::assertSame($alpha1, $alpha2);
+        static::assertInstanceOf(\stdClass::class, $beta);
+    }
+
+    public function testCacheHitDoesNotBreakSharedDependencyResolution(): void
+    {
+        $container = new Container();
+        $container->set('shared', static fn(): \stdClass => new \stdClass());
+        $container->set('first', static fn(\Waffle\Commons\Contracts\Container\ContainerInterface $c) => $c->get(
+            'shared',
+        ));
+        $container->set('second', static fn(\Waffle\Commons\Contracts\Container\ContainerInterface $c) => $c->get(
+            'shared',
+        ));
+
+        $first = $container->get('first'); // builds + caches 'shared'
+        $sharedDirect = $container->get('shared'); // cache hit
+        $second = $container->get('second'); // must resolve 'shared' again, not null
+
+        static::assertInstanceOf(\stdClass::class, $first);
+        static::assertSame($first, $sharedDirect);
+        static::assertSame($first, $second, 'shared singleton must be identical across all consumers');
+    }
 }
 
 // --- HELPER CLASSES ---
