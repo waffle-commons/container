@@ -11,7 +11,6 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionUnionType;
 use Waffle\Commons\Container\Exception\ContainerException;
-use Waffle\Commons\Container\Exception\NotFoundException;
 use Waffle\Commons\Contracts\Container\ContainerInterface;
 
 class Autowire
@@ -77,7 +76,10 @@ class Autowire
                 ));
             }
 
-            // Union types (A|B): try each non-builtin type left-to-right, use first successful resolution
+            // Union types (A|B): try each non-builtin type left-to-right, use first
+            // registered candidate. Beta-1 hardening: pre-check via has() instead of
+            // catching NotFoundException — exceptions for control flow are a
+            // measurable bottleneck on the autowire hot path.
             if ($type instanceof ReflectionUnionType) {
                 $resolved = false;
 
@@ -86,14 +88,14 @@ class Autowire
                         continue;
                     }
 
-                    try {
-                        $dependencies[] = $this->container->get(id: $unionType->getName());
-                        $resolved = true;
-                        break;
-
-                        // @mago-ignore lint:no-empty-catch-clause -- intentional: try next candidate in the union left-to-right
-                    } catch (NotFoundException) {
+                    $candidate = $unionType->getName();
+                    if (!$this->container->has($candidate)) {
+                        continue;
                     }
+
+                    $dependencies[] = $this->container->get(id: $candidate);
+                    $resolved = true;
+                    break;
                 }
 
                 if (!$resolved) {
@@ -121,29 +123,26 @@ class Autowire
                 throw new ContainerException("Cannot resolve primitive parameter \"{$parameter->getName()}\".");
             }
 
-            // Case 2: Named class/interface type — recursively resolve from container
+            // Case 2: Named class/interface type — pre-check the container instead
+            // of catching NotFoundException after the fact (Beta-1 hardening: no
+            // exceptions for control flow in the autowire hot path).
             $name = $type->getName();
 
-            try {
+            if ($this->container->has($name)) {
                 $dependencies[] = $this->container->get(id: $name);
-            } catch (NotFoundException $e) {
-                // If the parameter is nullable and the dependency cannot be found, inject null
-                if ($parameter->allowsNull()) {
-                    $dependencies[] = null;
-                    continue;
-                }
-
-                // Non-nullable dependency could not be resolved — surface a descriptive error
-                throw new ContainerException(
-                    sprintf(
-                        'Dependency "%s" for parameter "%s" could not be resolved: %s',
-                        $name,
-                        $parameter->getName(),
-                        $e->getMessage(),
-                    ),
-                    previous: $e,
-                );
+                continue;
             }
+
+            if ($parameter->allowsNull()) {
+                $dependencies[] = null;
+                continue;
+            }
+
+            throw new ContainerException(sprintf(
+                'Dependency "%s" for parameter "%s" could not be resolved: not registered in the container.',
+                $name,
+                $parameter->getName(),
+            ));
         }
 
         return $dependencies;

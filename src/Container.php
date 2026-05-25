@@ -24,9 +24,6 @@ final class Container implements ContainerInterface
     /** Prevents overriding core services after the container is locked */
     private bool $locked = false;
 
-    /** Prevents overriding core services after the container is locked */
-    private bool $checks = false;
-
     /** @var array<string, true> Core service identifiers that must never be overridden */
     private const CORE_SERVICES = [
         \Psr\Container\ContainerInterface::class => true,
@@ -51,16 +48,33 @@ final class Container implements ContainerInterface
     #[\Override]
     public function get(string $id): mixed
     {
-        $this->performChecks(id: $id);
-
-        if ($this->checks) {
+        // Return the memoised instance first — a cache hit is the hot path and
+        // must short-circuit before any resolution work.
+        //
+        // Beta-1 fix: the previous implementation stored this decision in a
+        // `$this->checks` instance flag that was set on the first cache hit and
+        // never cleared. Because the Container is a resident-worker singleton,
+        // that flag stayed `true` for the life of the worker and made every later
+        // *uncached* get() return `$this->instances[$id]` (i.e. null) instead of
+        // building the service — a cross-request contamination bug.
+        if (array_key_exists($id, $this->instances)) {
             return $this->instances[$id];
         }
 
-        $this->resolving[$id] = true;
+        // Beta-1 hardening (audit: "Eliminate Exceptions for Control Flow"):
+        // fail fast on unknown identifiers so callers can use `has()` as a
+        // cheap precondition instead of catching NotFoundException downstream.
+        if (!$this->has($id)) {
+            throw new NotFoundException("Service or class \"{$id}\" not found.");
+        }
 
+        // Circular-dependency guard: `$id` is already mid-resolution up the stack.
+        if (array_key_exists($id, $this->resolving)) {
+            throw new ContainerException("Circular dependency detected while resolving service \"{$id}\".");
+        }
+
+        $this->resolving[$id] = true;
         try {
-            // 3. Build and cache the instance
             $instance = $this->build($id);
             $this->instances[$id] = $instance;
         } finally {
@@ -77,8 +91,7 @@ final class Container implements ContainerInterface
     #[\Override]
     public function has(string $id): bool
     {
-        // @mago-ignore lint:no-isset
-        return isset($this->definitions[$id]) || class_exists($id);
+        return array_key_exists($id, $this->definitions) || class_exists($id);
     }
 
     /**
@@ -137,19 +150,6 @@ final class Container implements ContainerInterface
         }
 
         throw new NotFoundException("Service or class \"{$id}\" not found.");
-    }
-
-    private function performChecks(string $id): void
-    {
-        // 1. Return cached instance if available
-        if (array_key_exists(key: $id, array: $this->instances) && $this->instances[$id]) {
-            $this->checks = true;
-        }
-
-        // 2. Check for circular dependency
-        if (array_key_exists(key: $id, array: $this->resolving) && $this->resolving[$id]) {
-            throw new ContainerException("Circular dependency detected while resolving service \"{$id}\".");
-        }
     }
 
     /**
