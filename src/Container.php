@@ -116,6 +116,17 @@ final class Container implements ContainerInterface
 
         // @igor-ignore: boot-time service registration; the registry is frozen by lock() before any request is handled.
         $this->definitions[$id] = $concrete;
+
+        // An already-built object IS the singleton instance: memoize it now so
+        // (a) get() returns it without a build() pass, and (b) services
+        // implementing ResettableInterface participate in the per-request
+        // reset() loop even when no get() ever resolves them (they may be
+        // injected directly at boot, e.g. the RFC-021 SecurityContext).
+        // Closures stay lazy factories and are excluded.
+        if (is_object($concrete) && !$concrete instanceof Closure) {
+            // @igor-ignore: boot-time memoization of a caller-built singleton; frozen by lock() before any request.
+            $this->instances[$id] = $concrete;
+        }
     }
 
     /**
