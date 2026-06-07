@@ -15,12 +15,12 @@ use Waffle\Commons\Contracts\Container\ContainerInterface;
 
 class Autowire
 {
-    private ContainerInterface $container;
+    public function __construct(
+        private readonly ContainerInterface $container,
+    ) {}
 
-    public function load(ContainerInterface $container, string $class): null|object|string
+    public function load(string $class): object|string|null
     {
-        $this->container = $container;
-
         return $this->autowire(class: $class);
     }
 
@@ -30,7 +30,7 @@ class Autowire
      * @param class-string $class
      * @throws ContainerException|ReflectionException
      */
-    private function autowire(string $class): null|object|string
+    private function autowire(string $class): object|string|null
     {
         $reflector = new ReflectionClass($class);
 

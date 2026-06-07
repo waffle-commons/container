@@ -73,9 +73,11 @@ final class Container implements ContainerInterface
             throw new ContainerException("Circular dependency detected while resolving service \"{$id}\".");
         }
 
+        // @igor-ignore: transient circular-dependency guard, removed in the finally block within this same call.
         $this->resolving[$id] = true;
         try {
             $instance = $this->build($id);
+            // @igor-ignore: intentional worker-lifetime memoization of DI singletons; not request-scoped state.
             $this->instances[$id] = $instance;
         } finally {
             unset($this->resolving[$id]);
@@ -112,7 +114,19 @@ final class Container implements ContainerInterface
             throw new ContainerException(sprintf('Cannot override core service "%s".', $id));
         }
 
+        // @igor-ignore: boot-time service registration; the registry is frozen by lock() before any request is handled.
         $this->definitions[$id] = $concrete;
+
+        // An already-built object IS the singleton instance: memoize it now so
+        // (a) get() returns it without a build() pass, and (b) services
+        // implementing ResettableInterface participate in the per-request
+        // reset() loop even when no get() ever resolves them (they may be
+        // injected directly at boot, e.g. the RFC-021 SecurityContext).
+        // Closures stay lazy factories and are excluded.
+        if (is_object($concrete) && !$concrete instanceof Closure) {
+            // @igor-ignore: boot-time memoization of a caller-built singleton; frozen by lock() before any request.
+            $this->instances[$id] = $concrete;
+        }
     }
 
     /**
@@ -121,6 +135,7 @@ final class Container implements ContainerInterface
      */
     public function lock(): void
     {
+        // @igor-ignore: one-shot boot latch flipped once after wiring; never mutated per request.
         $this->locked = true;
     }
 
@@ -130,7 +145,7 @@ final class Container implements ContainerInterface
      * @throws ContainerException
      * @throws NotFoundException
      */
-    private function build(string $id): null|object|string
+    private function build(string $id): object|string|null
     {
         $concrete = $this->definitions[$id] ?? $id;
 
@@ -146,7 +161,7 @@ final class Container implements ContainerInterface
 
         // Handle class strings (Autowiring)
         if (is_string($concrete) && class_exists($concrete)) {
-            return new Autowire()->load(container: $this, class: $concrete);
+            return new Autowire(container: $this)->load(class: $concrete);
         }
 
         throw new NotFoundException("Service or class \"{$id}\" not found.");

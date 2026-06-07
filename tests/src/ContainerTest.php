@@ -143,6 +143,46 @@ class ContainerTest extends TestCase
         // Trigger the cycle
         $this->container->get('A');
     }
+
+    public function testSetObjectMemoizesTheInstanceForReset(): void
+    {
+        // RFC-021 §4.1 regression: a caller-built object registered via set()
+        // must participate in the per-request reset() loop EVEN IF no get()
+        // ever resolves it (it may be injected directly at boot, like the
+        // auth SecurityContext).
+        $service = new ResettableSpyService();
+        $this->container->set('spy', $service);
+
+        $this->container->reset();
+
+        static::assertTrue($service->wasReset, 'set(object) must memoize the instance into the reset() loop.');
+        static::assertSame($service, $this->container->get('spy'), 'get() must return the memoized instance.');
+    }
+
+    public function testSetClosureStaysALazyFactory(): void
+    {
+        $built = false;
+        $this->container->set('lazy', static function () use (&$built): object {
+            $built = true;
+
+            return new \stdClass();
+        });
+
+        $this->container->reset();
+
+        static::assertFalse($built, 'reset() must not force lazy factories to build.');
+    }
+}
+
+class ResettableSpyService implements \Waffle\Commons\Contracts\Service\ResettableInterface
+{
+    public bool $wasReset = false;
+
+    #[\Override]
+    public function reset(): void
+    {
+        $this->wasReset = true;
+    }
 }
 
 class ServiceWithNullableParamNoDefault
