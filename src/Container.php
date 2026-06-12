@@ -6,6 +6,7 @@ namespace Waffle\Commons\Container;
 
 use Closure;
 use IgorPhp\IgorBundle\Attribute\WorkerSafe;
+use Waffle\Commons\Container\Compliance\ComplianceScanner;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Container\Exception\NotFoundException;
 use Waffle\Commons\Contracts\Container\ContainerInterface;
@@ -36,9 +37,13 @@ final class Container implements ContainerInterface
 
     /**
      * @param array<string, string|Closure|object|callable> $definitions Pre-loaded service definitions.
+     * @param bool $strictComplianceScan DIAG-02: when true, {@see self::lock()} runs the boot-time
+     *        state-reset compliance scan (dev mode only). Defaults to false ⇒ zero cost in production.
      */
-    public function __construct(array $definitions = [])
-    {
+    public function __construct(
+        array $definitions = [],
+        private readonly bool $strictComplianceScan = false,
+    ) {
         $this->definitions = $definitions;
     }
 
@@ -136,6 +141,12 @@ final class Container implements ContainerInterface
      */
     public function lock(): void
     {
+        // DIAG-02 (dev only): fail the boot if a shared service would leak mutable
+        // state across worker requests. Runs once, here, after all wiring.
+        if ($this->strictComplianceScan) {
+            new ComplianceScanner()->scan($this->instances);
+        }
+
         $this->locked = true;
     }
 
