@@ -10,7 +10,7 @@
 Waffle Container Component
 ==========================
 
-> **Release:** `0.1.0-beta3` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md)
+> **Release:** `0.1.0-beta4` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md)
 > **PSR Compliance:** PSR-11 (`Psr\Container\ContainerInterface`)
 
 A strict PSR-11 service container with reflection-based autowiring, circular-dependency detection, and worker-mode resettability. Core services (the PSR-11 `ContainerInterface` itself) are locked from override after registration.
