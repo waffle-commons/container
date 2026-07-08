@@ -5,6 +5,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Released in lockstep with the Waffle Commons umbrella tag.
 
+## [0.1.0-beta5] — 2026-07-08
+
+**Theme: sealed autowiring & complexity guard.**
+
+### Changed
+- `Autowire` is now `final` — sealing the reflection-based autowiring helper against subclassing and keeping the PSR-11 container surface closed (FINAL-04).
+- Enabled the `cyclomatic-complexity` lint rule (`threshold = 50`) in [`mago.toml`](./mago.toml), ratcheting in a per-method complexity ceiling enforced on every CI run.
+
 ## [0.1.0-beta4] — 2026-06-13
 
 **Theme: worker-mode diagnostics.**

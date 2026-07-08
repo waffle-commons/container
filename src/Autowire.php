@@ -13,7 +13,7 @@ use ReflectionUnionType;
 use Waffle\Commons\Container\Exception\ContainerException;
 use Waffle\Commons\Contracts\Container\ContainerInterface;
 
-class Autowire
+final class Autowire
 {
     public function __construct(
         private readonly ContainerInterface $container,
