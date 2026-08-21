@@ -1,6 +1,6 @@
 {
     "name": "waffle-commons/container",
-    "description": "Container component for Waffle framework.",
+    "description": "PSR-11 dependency-injection container for Waffle Commons: autowiring, singleton lifecycles, and per-request reset semantics for resident-worker mode.",
     "type": "library",
     "license": "MIT",
     "autoload": {
