@@ -10,7 +10,7 @@
 Waffle Container Component
 ==========================
 
-> **Release:** `0.1.0-beta5` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md)
+> **Release:** `0.1.0-beta6` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md)
 > **PSR Compliance:** PSR-11 (`Psr\Container\ContainerInterface`)
 
 A strict PSR-11 service container with reflection-based autowiring, circular-dependency detection, and worker-mode resettability. Core services (the PSR-11 `ContainerInterface` itself) are locked from override after registration.
@@ -100,6 +100,13 @@ Contract-first, component-agnostic by construction: components compose through `
 ```bash
 docker exec -w /waffle-commons/container waffle-dev composer tests
 ```
+
+## 📚 Documentation
+
+Full guides live in the central Diátaxis documentation tree:
+
+- [Reference — `waffle-commons/container`](https://github.com/waffle-commons/documentation/blob/main/reference/container.md)
+- [Documentation home](https://github.com/waffle-commons/documentation)
 
 ## 📄 License
 

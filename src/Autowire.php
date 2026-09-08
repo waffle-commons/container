@@ -19,6 +19,16 @@ final class Autowire
         private readonly ContainerInterface $container,
     ) {}
 
+    /**
+     * The only caller (`Container::resolve()`) reaches this behind a
+     * `class_exists()` guard, and `autowire()` reflects on the value
+     * immediately — so a class-string is the real contract, not merely a
+     * string. Stating it here is what keeps the narrowing alive across the
+     * call boundary.
+     *
+     * @param class-string $class
+     * @throws ContainerException|ReflectionException
+     */
     public function load(string $class): object|string|null
     {
         return $this->autowire(class: $class);
