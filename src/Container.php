@@ -78,6 +78,28 @@ final class Container implements ContainerInterface
             throw new NotFoundException("Service or class \"{$id}\" not found.");
         }
 
+        return $this->memoise($id, fn(): object|string|null => $this->build($id));
+    }
+
+    /**
+     * Returns the instance this container holds for `$id`, building it with `$build`
+     * and memoising it the first time.
+     *
+     * `get()` builds through it, and so does a compiled container (AOT, RFC-019) for
+     * the ids it wires without reflection: whichever path resolves an id first, every
+     * later resolution returns that instance, and this container's `reset()` is the
+     * only cascade over it. It memoises an instance, never a definition, so it stays
+     * open after `lock()`.
+     *
+     * @param Closure(): (object|string|null) $build Builds the instance; called at most once per id.
+     * @throws ContainerException When `$id` is already being resolved further up the stack.
+     */
+    public function memoise(string $id, Closure $build): object|string|null
+    {
+        if (array_key_exists($id, $this->instances)) {
+            return $this->instances[$id];
+        }
+
         // Circular-dependency guard: `$id` is already mid-resolution up the stack.
         if (array_key_exists($id, $this->resolving)) {
             throw new ContainerException("Circular dependency detected while resolving service \"{$id}\".");
@@ -85,7 +107,7 @@ final class Container implements ContainerInterface
 
         $this->resolving[$id] = true;
         try {
-            $instance = $this->build($id);
+            $instance = $build();
             $this->instances[$id] = $instance;
         } finally {
             unset($this->resolving[$id]);
