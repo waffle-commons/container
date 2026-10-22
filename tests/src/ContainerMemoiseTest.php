@@ -9,6 +9,7 @@ use RuntimeException;
 use stdClass;
 use Waffle\Commons\Container\Container;
 use Waffle\Commons\Container\Exception\ContainerException;
+use Waffle\Commons\Container\Exception\NotFoundException;
 use WaffleTests\Commons\Container\Helper\CompliantResettableService;
 use WaffleTests\Commons\Container\Helper\ServiceWithoutDependencies;
 
@@ -55,16 +56,29 @@ final class ContainerMemoiseTest extends TestCase
         $container->lock();
 
         $service = $container->memoise(
-            'late',
+            ServiceWithoutDependencies::class,
             static fn(): ServiceWithoutDependencies => new ServiceWithoutDependencies(),
         );
 
-        static::assertSame($service, $container->get('late'));
+        static::assertSame($service, $container->get(ServiceWithoutDependencies::class));
+    }
+
+    public function testNeverAddsAnIdTheContainerCannotResolve(): void
+    {
+        // After lock(), set() refuses new services; memoise() must not be a way around it.
+        $container = new Container();
+        $container->lock();
+
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Service or class "late" not found.');
+
+        $container->memoise('late', static fn(): stdClass => new stdClass());
     }
 
     public function testRefusesACircularBuild(): void
     {
         $container = new Container();
+        $container->set('loop', stdClass::class);
 
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage('Circular dependency detected while resolving service "loop"');
@@ -78,6 +92,7 @@ final class ContainerMemoiseTest extends TestCase
     public function testReleasesTheGuardWhenTheBuildFails(): void
     {
         $container = new Container();
+        $container->set('flaky', ServiceWithoutDependencies::class);
         $failure = '';
         try {
             $container->memoise('flaky', static fn(): never => throw new RuntimeException('boom'));
@@ -98,7 +113,7 @@ final class ContainerMemoiseTest extends TestCase
     {
         $container = new Container();
         $service = $container->memoise(
-            'resettable',
+            CompliantResettableService::class,
             static fn(): CompliantResettableService => new CompliantResettableService(),
         );
         static::assertInstanceOf(CompliantResettableService::class, $service);

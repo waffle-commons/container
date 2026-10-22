@@ -71,13 +71,6 @@ final class Container implements ContainerInterface
             return $this->instances[$id];
         }
 
-        // Beta-1 hardening (audit: "Eliminate Exceptions for Control Flow"):
-        // fail fast on unknown identifiers so callers can use `has()` as a
-        // cheap precondition instead of catching NotFoundException downstream.
-        if (!$this->has($id)) {
-            throw new NotFoundException("Service or class \"{$id}\" not found.");
-        }
-
         return $this->memoise($id, fn(): object|string|null => $this->build($id));
     }
 
@@ -89,15 +82,25 @@ final class Container implements ContainerInterface
      * the ids it wires without reflection: whichever path resolves an id first, every
      * later resolution returns that instance, and this container's `reset()` is the
      * only cascade over it. It memoises an instance, never a definition, so it stays
-     * open after `lock()`.
+     * open after `lock()`, but only for an id the container can resolve: it never
+     * adds one.
      *
      * @param Closure(): (object|string|null) $build Builds the instance; called at most once per id.
+     * @throws NotFoundException  When the container cannot resolve `$id` (`has()` is false).
      * @throws ContainerException When `$id` is already being resolved further up the stack.
      */
     public function memoise(string $id, Closure $build): object|string|null
     {
         if (array_key_exists($id, $this->instances)) {
             return $this->instances[$id];
+        }
+
+        // Beta-1 hardening (audit: "Eliminate Exceptions for Control Flow"):
+        // fail fast on unknown identifiers so callers can use `has()` as a
+        // cheap precondition instead of catching NotFoundException downstream.
+        // Checked here, not in get(), so memoise() cannot add an id after lock().
+        if (!$this->has($id)) {
+            throw new NotFoundException("Service or class \"{$id}\" not found.");
         }
 
         // Circular-dependency guard: `$id` is already mid-resolution up the stack.
