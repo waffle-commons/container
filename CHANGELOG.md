@@ -5,7 +5,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Released in lockstep with the Waffle Commons umbrella tag.
 
-## [Unreleased]
+## [0.1.0-beta7] — 2026-11
+
+**Theme: one instance per service in AOT mode (CARRY-06).**
 
 ### Added
 - `Container::memoise(string $id, Closure $build)` returns the instance the container holds for an id, building it with `$build` the first time, under the same circular-dependency guard as `get()`, which now builds through it. A compiled container (AOT, RFC-019) memoises the services it wires statically through it. Whichever path resolves an id first, the runtime and the compiled container then share one instance, and `reset()` covers it once. It memoises instances, not definitions, so it still works after `lock()`, but only for an id the container can resolve. An unknown id throws `NotFoundException`, as `get()` does, so `memoise()` cannot add a service after `lock()` (CARRY-06).
