@@ -10,10 +10,18 @@
 Waffle Container Component
 ==========================
 
-> **Release:** `0.1.0-beta6` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md)
+> **Release:** `0.1.0-beta7` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md)
 > **PSR Compliance:** PSR-11 (`Psr\Container\ContainerInterface`)
 
 A strict PSR-11 service container with reflection-based autowiring, circular-dependency detection, and worker-mode resettability. Core services (the PSR-11 `ContainerInterface` itself) are locked from override after registration.
+
+## 🆕 Beta-7 — one instance per service in AOT mode (CARRY-06)
+
+```php
+public function memoise(string $id, Closure $build): object|string|null
+```
+
+`Container::memoise()` returns the instance the container holds for an id, building it with `$build` the first time, under the same circular-dependency guard as `get()`, which now builds through it. A compiled container (AOT, RFC-019) memoises the services it wires statically through it, so whichever path resolves an id first, the runtime and the compiled container share one instance, and `reset()` covers it once. It memoises instances, not definitions: it still works after `lock()`, but only for an id the container can resolve, and an unknown id throws `NotFoundException`, as `get()` does.
 
 ## 📦 Installation
 
